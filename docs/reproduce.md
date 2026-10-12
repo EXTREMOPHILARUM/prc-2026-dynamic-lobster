@@ -3,7 +3,8 @@
 Two levels of reproduction, with different completeness:
 
 1. **Prediction from the fitted components: complete.** Given the fitted files in `models/`
-   (published separately, since `models/` is git-ignored) and the feature files in `data/interim/`,
+   (published as the GitHub release `final`, since `models/` is git-ignored:
+   `gh release download final --repo EXTREMOPHILARUM/prc-2026-dynamic-lobster --dir models`) and the feature files in `data/interim/`,
    `prc.submit.predict_frame` regenerates the submitted predictions. Section 4.
 2. **Training every component from raw data: documented, with known gaps.** The model grew over 48
    versions. Several components were assembled by hand or fitted with flags no script records.
@@ -13,6 +14,19 @@ Machine notes: CatBoost fits marked **[GPU]** ran on an RTX 4070 Ti. Steps marke
 raw adsb.lol archives (~hundreds of GB) and hard-code `~/prc_data_challenge` and
 `~/Data/adsb_raw<year>` as paths. Everything else runs on a laptop. Long runs take 25-60 minutes per
 12-fold run; launch them with `python -u` in the background.
+
+## 0. The final-phase submission
+
+The final phase scores Jan, Feb, Jun and Jul 2026 (`final_ranking.parquet`, `final_submitting.parquet`).
+`models/mechanism_v48_final.json` is `mechanism_v48.json` with the 2026 own-flight feature file replaced by
+`adsb_own_2026_v10final.parquet`, rebuilt over all four months:
+
+    PRC_RANKING_SET=final uv run python -u scripts/adsb/own_flight_features.py 2026 --allow-ranking --stands-v2 --ground-v2 --v7 --v8 --v9 --v10 --tag _v10final
+    PRC_RANKING_SET=final uv run python -m prc.submit --final --model models/mechanism_v48_final
+
+The Feb/Jun 2026 adsb.lol days are listed in `scripts/adsb/days_final_2026_feb_jun.txt` (ingest with
+`DAYS_FILE=... scripts/adsb/reingest_v2.sh`, extraction with `scripts/adsb/extract_v2.sh`); 2026-06-07, 06-23 and
+06-25 could not be fetched, and their departures are served without the trace experts.
 
 ## 1. What the model is
 
