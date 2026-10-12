@@ -1,0 +1,11 @@
+{
+    "status": "Succeeded",
+    "file": "dynamic-lobster_v28.parquet",
+    "bucket": "prc-2026-dynamic-lobster",
+    "used_pairs": 344841,
+    "inputs": {
+        "test_set_bucket": "prc-2026-testsets",
+        "test_set_file": "truthing.parquet"
+    },
+    "score": 268.3288
+}
