@@ -4,8 +4,8 @@ Taxi-out time prediction for departures from ten European airports (EUROCONTROL 
 OpenSky Network data challenge 2026). Licensed under the GNU GPL v3 (`LICENSE`).
 
 Final submission: `models/mechanism_v48_final` (v48, public board 240.51 on Jan+Jul 2026), predicting the final phase's
-Jan, Feb, Jun and Jul 2026. `docs/reproduce.md` gives the end-to-end rebuild; trained model files are attached to the
-GitHub release `final` (too large for git).
+Jan, Feb, Jun and Jul 2026. `docs/reproduce.md` gives the end-to-end rebuild; the submitted predictions are attached to the
+GitHub release `final`. Start with `docs/state.md`.
 
 ## What this is
 

@@ -399,8 +399,9 @@ def main() -> None:
     )
 
     if args.upload:
-        if args.final and any(o["Key"] == path.name for o in s3.list_objects(config.SUBMIT_BUCKET)):
-            raise SystemExit(f"{path.name} is already in the bucket: the final submission is single, not replaced")
+        # a re-upload overwrites the previous final (organiser, Discord 2026-10-12); --force makes that deliberate
+        if args.final and not args.force and any(o["Key"] == path.name for o in s3.list_objects(config.SUBMIT_BUCKET)):
+            raise SystemExit(f"{path.name} is already in the bucket: pass --force to overwrite it")
         used = s3.uploads_today()
         if len(used) >= s3.DAILY_LIMIT:
             raise SystemExit(

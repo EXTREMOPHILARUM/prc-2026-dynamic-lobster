@@ -1,30 +1,20 @@
 # Where this entry stands
 
-> **Audit warning, 2026-09-20:** Read
-> [`foundational-assumptions-audit-2026-09-20.md`](foundational-assumptions-audit-2026-09-20.md)
-> before using this file for modelling decisions. The audit verifies the primary data semantics
-> but identifies material problems with the production-v29 OOF reconstruction, stacker nesting,
-> January/July reuse, ATFM temporal availability, leaderboard-derived strategy, universal
-> robustness rules, uncertainty estimates, ADS-B conclusions, and claims of irreducibility.
-> Where the two documents conflict, the audit governs until the relevant corrective work is run.
+> **Audit note, 2026-09-20:** [`foundational-assumptions-audit-2026-09-20.md`](foundational-assumptions-audit-2026-09-20.md)
+> re-checks older claims (the v29 OOF reconstruction, stacker nesting, January/July reuse, ATFM temporal
+> availability, ADS-B conclusions, claims of irreducibility). Where it and an older statement disagree, the audit
+> governs.
 
-Living summary; position and ladder last updated **2026-10-01** (board 07:15 UTC, 213 teams). The anatomy
-section below is the 2026-09-20 v29 view; the current error anatomy (after v35) is in
-`docs/handoff-2026-10-01.md`. `docs/experiment-log.md` is the evidence (sections 1-60); this is the
-five-minute version. `docs/submissions.md` is the per-version record. Read this first, then the log
-section a change cites. The current operational handoff is `docs/handoff-2026-10-04.md` (v40-v42, the
-retune sweep; `docs/handoff-2026-10-01.md` before it).
+The five-minute summary of the solution. `docs/experiment-log.md` is the evidence behind every statement here, by
+section; `docs/submissions.md` is the per-version record; `docs/reproduce.md` rebuilds the submission. The anatomy
+section is the 2026-09-20 view at v29; later sections of the log refine it.
 
 ## Position
 
 | | |
 | --- | --- |
-| Best submission | **v48, 240.51**, uploaded 2026-10-05 UTC (v47 + runway-state and gate-retention base features, section 63) |
-| Rank | 21 of 213 (2026-10-01 07:15 UTC) |
-| Nearest ahead | gentle-lemon 243.43 (20th), charming-eel 239.96 (19th); understanding-accordion 244.22 just behind. Full board: `docs/competition-landscape.md` |
-| Prize line (3rd place) | **222.91** (jolly-lobster, 2026-10-01). The prize is for the **first 3 teams** (docs/reference/index.html, "Reward"); earlier text calling rank 4 the cutoff was wrong (audit finding 12). Leader strong-crane 219.64 |
-| Deadline | 2026-10-11 |
-| Quota | 5 uploads per UTC day; version numbers are write-once; next free number is **v49** |
+| Final submission | `dynamic-lobster_final.parquet`: v48 with the own-flight trace features rebuilt over the final phase's four months (Jan, Feb, Jun, Jul 2026) |
+| Best public-board score | **v48, 240.51** (Jan + Jul 2026), 35th of 242 at the close |
 
 Ladder: v13 342.22 (2026-09-16) -> v15 310.58 -> v16 301.14 -> v21 280.80 -> v22 276.46 ->
 v24 271.88 -> v25 269.82 -> v26 269.33 -> v27 269.25 -> v28 268.33 -> v29 267.87 -> v30 267.96
@@ -38,8 +28,8 @@ Described module-by-module in `README.md` under "Architecture". In one sentence:
 *reporting regimes* rather than a single regressor, because ~0.2% of departures have a recorded
 taxi time that is a broken clock rather than a long taxi, and RMSE is dominated by them.
 
-The code supports everything through v30; `models/mechanism_v29.json` is the best-scoring
-wrapper and `models/mechanism_v30.json` is the one that did not pay. Ship from v29.
+The submitted wrapper is `models/mechanism_v48_final.json`; `README.md` lists its stages and `docs/reproduce.md`
+how each component was fitted.
 
 ## Anatomy of the remaining error
 
@@ -69,9 +59,8 @@ Three facts that follow, and that govern what is worth trying:
    its own unpredictable rows and our fold has never been "pessimistic" for the reason
    section 8h assumed.**
 2. **One day-offset row is worth 43 seconds of RMSE.** A row with truth 86,400s predicted at
-   1,050s contributes 21,125 to the mean squared error, against a total of 71,754. The entire
-   23-second gap to the prize cutoff is worth 0.55 of one such row. The competition above us is
-   decided by a handful of rows, not by model quality.
+   1,050s contributes 21,125 to the mean squared error, against a total of 71,754. A 23-second
+   difference in board RMSE is worth 0.55 of one such row: rankings at this level are decided by a handful of rows.
 3. **The bulk is thin and level.** Matched rows with y < 30 minutes run RMSE 177 over 324,000
    rows. Closing 23 seconds from the bulk alone would need that to fall to about 137, a 23%
    reduction, which no feature work will deliver.
@@ -149,7 +138,6 @@ Adopted 2026-09-25 after re-reading `docs/foundational-assumptions-audit-2026-09
   RMSE into a predicted board score (finding 11). The ~0.3s "resolution limit" and the v31/v33
   "~2x transfer" are both board-derived and must not decide what ships.
 - Drop-row checks are a concentration diagnostic, not a veto (finding 6).
-- The prize is for the **first three** teams, not four (finding 12).
 - Scorer responses are kept verbatim in `docs/reference/scorer-results/`; `prc.submit --upload`
   saves each new one (finding 13).
 
@@ -181,25 +169,3 @@ Adopted 2026-09-25 after re-reading `docs/foundational-assumptions-audit-2026-09
 - **Never tune against a submitted score.** Organiser rule and project policy.
 - **Validation is unfiltered, whole months, Jan and Jul separately**, with the leakage probe in
   `scripts/rehearse_submission.py` before every upload.
-
-## Operational notes
-
-- GPU box: `ssh the GPU host`, repo at `~/prc_data_challenge`, `.venv` Python 3.12, CatBoost GPU
-  works. Sync with `rsync -az src scripts the GPU host:~/prc_data_challenge/`. `models/` is
-  gitignored, so new model JSON must be copied across explicitly.
-- **One GPU job at a time.** Starting a member fit while a fold run held the card cost an
-  out-of-memory crash on 2026-09-18. Do not use `pkill -f` patterns inside `ssh` commands; they
-  kill the session. Kill by PID.
-- `prc.submit` refuses to rebuild over an existing local submission file. Move the prebuilt file
-  aside (`data/interim/…prebuilt.parquet`) and upload through the checked path, then verify the
-  uploaded file is identical to the rehearsed one.
-- Leaderboard: `https://datacomp.opensky-network.org/api/competitions/bb3693e1-26bc-4a9e-8619-4fe78b4eab0c/leaderboard`,
-  paginate on `nextCursor`, rank by best score per `teamName`. The board embedded on the
-  organisers' ranking page is a third-party mirror whose columns are `#`, Team, Best, **Subs**,
-  Last activity — "Subs" is the submission count, not the rank.
-- Discord export: `~/.local/bin/dce`, `DISCORD_TOKEN` in `.env`, channel `1304403918515605504`.
-
-## Before the deadline
-
-Prize eligibility requires the repo **public under GPLv3 before 2026-10-11**. It is private by
-the user's instruction and the user decides when to publish. Nothing else is outstanding.

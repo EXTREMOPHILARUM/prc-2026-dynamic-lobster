@@ -3,8 +3,7 @@
 Two levels of reproduction, with different completeness:
 
 1. **Prediction from the fitted components: complete.** Given the fitted files in `models/`
-   (published as the GitHub release `final`, since `models/` is git-ignored:
-   `gh release download final --repo EXTREMOPHILARUM/prc-2026-dynamic-lobster --dir models`) and the feature files in `data/interim/`,
+   (not published: `models/` is git-ignored and the fitted files are about 640 MB; section 3 refits them) and the feature files in `data/interim/`,
    `prc.submit.predict_frame` regenerates the submitted predictions. Section 4.
 2. **Training every component from raw data: documented, with known gaps.** The model grew over 48
    versions. Several components were assembled by hand or fitted with flags no script records.
