@@ -122,7 +122,6 @@ have `MVT − AOBT_3` above 3,600s.
    of the shipped chain (audit finding 1). Coverage limits the rest: LTFM 0%, EHAM/EDDF/LFPG
    ground reception poor in adsb.lol; a second open-licensed ADS-B source is the only larger lever
    seen (not yet researched).
-4. **Watch for top teams publishing code.** Ranks 1–16 have none. `docs/competitor-repos.md`.
 
 ## How claims are stated (foundational audit, 2026-09-20)
 

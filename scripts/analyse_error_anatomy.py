@@ -24,7 +24,7 @@ import pandas as pd
 from prc import config, decomposition, evaluation, lirfbands, lirfmoe, matrix, mechanism
 
 AIRPORTS = ["EDDF", "EDDM", "EGLL", "EHAM", "LEBL", "LEMD", "LFPG", "LIRF", "LSZH", "LTFM"]
-RIVALS = [(245.02, "prize cutoff (rank 4)"), (257.55, "merry-quicksand"), (266.45, "upbeat-goblin")]
+RIVALS: list[tuple[float, str]] = []  # reference scores to compare the anatomy against; none by default
 BOARD = 267.87      # v29
 N_SCORED = 344_841  # rows in the ranking set
 

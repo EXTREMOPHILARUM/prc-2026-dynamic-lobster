@@ -2766,15 +2766,14 @@ LFPG 13-15%, **LIRF July 0.2%** (adsb.lol has 0-11 LIRF ground take-offs a day i
 January; the feeder is gone, not our pipeline), LEMD July 67%, EDDF 72-77%. On the v38-equivalent Jan+Jul fold,
 unjoined matched rows carry about a third of the error (LTFM 9.2%, LFPG/EHAM/EDDF 7.9%, other airports 11.8%).
 
-## 61. Coverage and competitor sweep; published monthly taxi-out means as a calibration (2026-10-01)
+## 61. Coverage; published monthly taxi-out means as a calibration (2026-10-01)
 
 **Other ADS-B sources (research agent).** No eligible archive fills LTFM, LFPG or LIRF July 2026. adsb.fi and
 airplanes.live are non-commercial, ADS-B Exchange is commercial, ADSBHub has no history, and OPDI derives from
 OpenSky. adsb.lol's `mlatonly-0` tag (ODbL) has **zero ground points** (checked on 2026-07-16: 39,364 traces).
 The one lead is FlyItalyADSB (CC BY-SA 4.0), which keeps only about 20 days self-serve; older data is on request.
 
-**Competitors and Discord since 09-26 (research agent).** No public code from any team above us. kind-mango (249.4)
-moved to the same own-flight adsb.lol approach. GREKI warns that adsb.lol's receiver network changed between
+**Discord since 09-26.** GREKI warns that adsb.lol's receiver network changed between
 2025 and 2026. Ruling 2026-09-27 (rules-and-compliance): the published Jan/Jul 2026 monthly taxi-out means may be
 used as inputs.
 

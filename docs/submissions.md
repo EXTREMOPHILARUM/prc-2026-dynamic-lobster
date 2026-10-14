@@ -304,7 +304,7 @@ no-record rows under 4h (experiment log section 22). Fold Jan+Jul 314.43 -> 310.
 
 `models/mechanism_v25`: v24 with the mixture also serving the 4-8h gap band (18 ranking rows).
 Fold Jan+Jul 310.15 -> 309.41. **Scored 271.88 -> 269.82 (-2.1s).** Uploaded 2026-09-17,
-fifth of five. Rank ~20; elegant-alligator 268.56 is 1.3s ahead.
+fifth of five.
 
 ## v26 — EUROCONTROL ATFM daily features + second CatBoost seed
 
@@ -317,7 +317,7 @@ the base and gate, and two 10k-iteration CatBoost members at 0.25 each. Fold est
 
 `models/mechanism_v27`: v26 with `lirf_moe_8h_cat` (CatBoost GPU regressor in the LIRF
 no-record mixture). Fold Jan+Jul 309.41 -> 309.09 (-0.32). Uploaded 2026-09-18 00:15 UTC.
-**Scored 269.33 -> 269.25 (-0.08s).** Rank ~21; elegant-alligator 268.56 is 0.7s ahead.
+**Scored 269.33 -> 269.25 (-0.08s).**
 
 ## v28 — second-stage stacker on matched rows
 
@@ -327,7 +327,7 @@ probability, LOBT expert, four clock proxies, airport) adding half its residual 
 matched rows before the LOBT clip. Fold Jan+Jul -0.70 at weight 0.5 (-0.82 at 1.0), 12/12
 months, drop-50 robust (experiment log section 26). Leakage probe PASS; rehearsal 264.09 ->
 260.81 (in-sample). Uploaded 2026-09-18 09:37 UTC, third of five. **Scored 269.25 -> 268.33
-(-0.92s).** Passes elegant-alligator (268.56) and kind-earthquake (268.52): rank ~17.
+(-0.92s).**
 
 ## v29 — LOBT-anchored CatBoost member
 
@@ -386,8 +386,7 @@ LTFM / LFPG / LIRF-July / no-record rows untouched.
 Uploaded 2026-09-25 through the quota-checked path (first of five that UTC day). **Scored 267.87
 -> 260.06 (-7.81s; fold said -3.95, coverage-weighted floor -3.63).** Transfer ~2x: 2026 has
 own-trace coverage at airport-months that 2025 lacked (LEMD Jan 0% -> 96%, LIRF Jan 0% -> 59%,
-EGLL Jul 7% -> 97%), which the floor deliberately did not credit. Rank 18 of 190; 3rd place (the
-last prize position) 234.14, leader 225.84.
+EGLL Jul 7% -> 97%), which the floor deliberately did not credit.
 
 ## v32 — own-flight expert v2, silent-gap rule
 
@@ -398,8 +397,7 @@ coverage. Leakage probe PASS; rehearsal 256.76 (v31 258.43, v29 262.05; in-sampl
 344,841 rows, 53.0% changed against v31, mean shift -0.0s, |shift| median 13s, p99 149s.
 Uploaded 2026-09-25, second of five that UTC day. **Scored 260.06 -> 257.73 (-2.33s; fold said
 -2.0 over v31).** Transfer ~1.2x, not the ~2x of v31: the silent-gap rows are bound-only features
-whose coverage does not change much between 2025 and 2026. Rank 18 of 191, 0.16s behind
-gentle-ladder (257.57) and 0.41s behind strong-turtle (257.32); 3rd place (last prize position) 234.14.
+whose coverage does not change much between 2025 and 2026.
 
 ## v33 — own-flight expert v3, stand exit from X-Plane stand coordinates
 
@@ -411,8 +409,7 @@ rows against 27.8% in 2025. Leakage probe PASS; rehearsal 254.79 (v32 256.76; in
 File: 344,841 rows, 53.7% changed against v32, mean shift -1.5s, |shift| median 25s, p99 181s.
 Uploaded 2026-09-25, third of five that UTC day. **Scored 257.73 -> 252.69 (-5.04s; fold said
 -2.44 over v32).** Transfer ~2.1x: stand-exit coverage is higher in 2026 (33.7% of joined) than
-in 2025 (27.8%), and 2026 joins more rows overall. Rank 14 of 191, passing merry-quicksand
-(254.11); 4.1s behind humble-rocket (248.56); 3rd place (last prize position) 234.14.
+in 2025 (27.8%), and 2026 joins more rows overall.
 
 ## v34 — own-flight expert v5: wider stand location + first-sighting distance
 
@@ -422,9 +419,7 @@ against the v29 reconstruction (v33's expert: -8.38), 12/12 months better than v
 the paired comparison (v4 -0.24, then v5 -0.11), drop-50 -8.31. Leakage probe PASS; rehearsal
 254.51 (v33 254.79; in-sample). File: 344,841 rows, 52.3% changed against v33, mean -0.3s,
 |shift| median 8s, p99 67s.
-Uploaded 2026-09-26, first of five that UTC day. **Scored 252.69 -> 252.14 (-0.55s).** Board at
-upload: v33 still listed as our best (the board lags the scorer); rank 16 of 194 on it, 3rd place
-quick-boat 231.73, leader jolly-lobster 224.88.
+Uploaded 2026-09-26, first of five that UTC day. **Scored 252.69 -> 252.14 (-0.55s).**
 
 ## v35 — ground extraction v2 + retuned own-flight expert
 
@@ -436,8 +431,7 @@ expert** (CI [-5.48, -3.40]), 12/12 months, drop-50 against the v5-feature retun
 344,841 rows, ids identical to v34, 61.8% changed, mean shift +0.4s, |shift| median 19s, p99 213s; LTFM and
 no-record rows untouched, LFPG 13.2% changed. Uploaded 2026-09-29 from the GPU host (this Mac's route to
 s3.opensky-network.org timed out), first of five that UTC day, the rehearsed file byte-identical (sha256
-82a4e770...). **Scored 252.14 -> 247.54 (-4.60s; fold said -4.33 over v34's expert).** Rank 22 of 202;
-3rd place (last prize position) jolly-lobster 224.50, leader strong-crane 220.65.
+82a4e770...). **Scored 252.14 -> 247.54 (-4.60s; fold said -4.33 over v34's expert).**
 
 ## v36 — Rome garbled-string schedule-copy rule
 

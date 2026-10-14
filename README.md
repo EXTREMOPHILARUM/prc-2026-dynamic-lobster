@@ -107,7 +107,7 @@ Board ladder: v16 301.14 -> v21 280.80 -> v25 269.82 -> v28 268.33 -> v29 267.87
 (own-flight expert) -> v32 257.73 (silent-gap rule) -> v33 252.69 (X-Plane stand exits) -> v34 252.14
 -> v35 247.54 (ground_v2 extraction) -> v36 246.86 (garbled copy rule) -> v37 246.01 (no-record
 expert) -> **v38 244.19** (v7 trace features), rank 21 of 213 on 2026-10-01. `docs/submissions.md` is the per-version record, `docs/state.md` the
-current position, `docs/competitor-repos.md` what public entries taught us.
+current position.
 
 ## Rules that constrain the code
 
